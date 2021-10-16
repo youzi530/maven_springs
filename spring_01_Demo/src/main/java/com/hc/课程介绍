@@ -1,0 +1,34 @@
+一spring流程：
+    1、导包
+     在pom.xml中加入:
+     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>5.0.3.RELEASE</version>
+        </dependency>
+     </dependencies>
+    2、创建配置文件
+        新建bean.properties文件:userService=com.hc.service.Impl.IUserServiceImp
+    3、用spring工厂来获得Bean实例对象
+
+
+二新旧版本的spring的区别：
+    1、旧版本（Test）
+        BeanFactory beanFactory = new XmlBeanFactory(resource);
+        IUserServiceImp iUserServiceImp = (IUserServiceImp) beanFactory.getBean("iUserServiceImp");
+        iUserServiceImp.findUser();
+    2、新版本（TestServlet）
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        IUserServiceImp iUserServiceImp = (IUserServiceImp) applicationContext.getBean("iUserServiceImp");
+        iUserServiceImp.findUser();
+    3、总结区别：
+        ·父子关系，ApplicationContext是BeanFactory的子类
+        ·一个立即加载一个延迟加载，ApplicationContext立即加载，BeanFactory延迟加载
+        ·ApplicationContext有一些新的功能
+
+三spring：
+    ·概述：分层的，一站式，轻量级开源框架
+    ·核心：
+        ·IOC
+        ·AOP

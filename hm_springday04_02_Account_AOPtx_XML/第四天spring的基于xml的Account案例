@@ -1,0 +1,19 @@
+在这个基于xml的案例中：
+    1、主要就是aop的配置
+        <!--配置aop-->
+        <aop:config>
+            <!--配置通用切入点表达式-->
+            <aop:pointcut id="pt1" expression="execution(* service.impl.*.*(..))"/>
+
+            <aop:aspect id="txAdvice" ref="tsManger">
+                <!--配置前置通知：开启事务-->
+                <aop:before method="beginTransaction" pointcut-ref="pt1"></aop:before>
+                <!--配置后置通知：提交事务-->
+                <aop:after-returning method="commit" pointcut-ref="pt1"></aop:after-returning>
+                <!--配置异常通知：回滚事务-->
+                <aop:after-throwing method="rollback" pointcut-ref="pt1"></aop:after-throwing>
+                <!--配置最终通知：释放连接-->
+                <aop:after method="release" pointcut-ref="pt1"></aop:after>
+            </aop:aspect>
+        </aop:config>
+    2、然后工具类的书写--事务增强类

@@ -1,0 +1,4 @@
+spring基于xml的crud
+
+注意点：
+    QueryRunner需要注入，而且QueryRunner默认单例。如果是多例的情况就会产生线程安全问题

@@ -1,0 +1,76 @@
+
+Spring的事务：（事务四大特性：ACID:原子性、一致性、隔离性、持久性）
+
+
+一、事务相关常用的三个接口类
+    1、PlatformTransactionManager:平台事务管理器
+        commit(TransactionStatus status) 提交事务
+        getTransaction(TransactionDefinition definition) 获取事务
+        rollback(TransactionStatus status) 回滚事务
+    2、TransactionDefinition:事务定义
+        ISOLation_XXX:事务隔离级别.
+        PROPAGATION_XXX:事务的传播行为.(不是JDBC中有的，为了解决实际开发问题.)
+        TIMEOUT_DEFAULT： 默认值是-1，表示没有超时限制。如果有，以秒为单位进行设置
+    3、TransactionStatus:事务状态
+        是否有保存点
+        是否一个新的事务
+        事务是否已经提交
+
+二、三个API接口之间的关系
+    PlatformTransactionManager通过TransactionDefinition设置事务相关信息来管理事务，
+   管理事务过程中，产生一些事务状态:状态由TransactionStatus记录.
+
+三、API详解
+    1、PlatformTransactionManager:接口.
+       *org.springframework.jdbc.datasource.DataSourceTransactionManager	:	使用Spring JDBC或MyBatis 进行持久化数据时使用
+       *org.springframework.orm.hibernate3.HibernateTransactionManager: 	使用Hibernate3.0版本进行持久化数据时使用
+         org.springframework.orm.jpa.JpaTransactionManager	使用JPA进行持久化时使用
+         org.springframework.jdo.JdoTransactionManager	当持久化机制是Jdo时使用
+         org.springframework.transaction.jta.JtaTransactionManager	使用一个JTA实现来管理事务，在一个事务跨越多个资源时必须使用
+
+
+四、事务的配置：
+    1、手动编码的方式完成事务管理
+        第一步:注册事务管理器
+            <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+                <!-- 需要注入连接池,通过连接池获得连接 -->
+                <property name="dataSource" ref="dataSource"/>
+            </bean>
+        第二步:注册事务模板类
+        	<bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        		<property name="transactionManager" ref="transactionManager"/>
+        	</bean>
+        第三步:在业务层注入模板类:(模板类管理事务)
+            1·<bean id="accountService" class="cn.itcast.spring3.demo1.AccountServiceImpl">
+        		<!-- 在业务层注入Dao -->
+        		<property name="accountDao" ref="accountDao"/>
+        		<!-- 在业务层注入事务的管理模板 -->
+        		<property name="transactionTemplate" ref="transactionTemplate"/>
+        	 </bean>
+            2·在业务层实现类中去加入事务模板对象
+                //事务模板对象
+            	private TransactionTemplate transactionTemplate;
+            	//set注入一下
+            	public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
+            		this.transactionTemplate = transactionTemplate;
+            	}
+        第四步:在业务层代码上使用模板:当事务中出现异常，事务会自动回滚，数据库数据不发生变化
+       手动编码方式缺点:
+            * 代码量增加,代码有侵入性
+
+    2、
+    3、
+
+
+
+
+
+
+
+
+MVC
+
+
+
+
+

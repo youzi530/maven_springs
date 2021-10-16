@@ -1,0 +1,19 @@
+1、在bean.xml里面的配置：
+    <!-- spring中基于注解的声明式事务控制配置步骤
+         1、配置事务管理器
+         2、开启spring对注解事务的支持
+         3、在需要事务支持的地方使用@Transactional注解
+     -->
+
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 开启spring对注解事务的支持-->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+2、在Dao层里面的书写：
+    不继承JdbcDaoSupport,而是自己写一个成员变量
+        @Autowired
+        private JdbcTemplate jdbcTemplate;

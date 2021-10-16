@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <!--一、创建bean的三种方式-->
+            <!--1、使用默认构造函数创建
+                <bean id="accountService" class="com.itheima_0402_0402.service.impl.AccountServiceImpl"></bean>
+            -->
+
+            <!--2、使用普通工厂中的方法
+                <bean id="instanceFactory" class="com.itheima_0402_0402.factory.InstanceFactory"></bean>
+                <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>
+            -->
+
+            <!--3、使用普通工厂中的方法
+                <bean id="accountService" class="com.itheima_0402_0402.factory.StaticFactory" factory-method="getAccountService"></bean>
+            -->
+
+        <!--二、bean的作用范围、bean对象的生命周期-->
+            <bean id="accountService" class="com.itheima_0402.service.impl.AccountServiceImpl"
+                scope="prototype" init-method="init" destroy-method="destory"></bean>
+
+
+</beans>

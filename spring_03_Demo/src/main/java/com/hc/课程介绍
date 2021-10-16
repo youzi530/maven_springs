@@ -1,0 +1,40 @@
+一、Spring的注解装配Bean:
+    ·1导包：
+    ·2步：设置xml文件beans标签属性，添加约束，xmlns：context
+    ·3步：开启<context:component-scan base-package="com.hc"></context:component-scan>
+    ·4步：用于创建对象的注解
+        @Component
+        @Controller
+        @Service
+        @Repository
+
+二、非注解版本步骤：
+    ·在bean.xml里面加入加入bean标签，使对应的类注入bean工厂：<bean id="user" class="com.hc.entity.User"></bean>
+    ·在bean标签里面加入子属性，<property>
+                ·<bean id="user5" class="com.hc.entity.User3">
+                         <property name="id" value="1005"></property>
+                         <property name="username" value="峰哥"></property>
+                         <property name="password" value="12414"></property>
+                         <property name="name" value="总计经理"></property>
+                         <property name="birthday" ref="mybirthday"></property>
+                 </bean>
+
+
+三、注解版本步骤：
+    ·在类中直接加注解，四种使对应的类注入bean工厂：@Componen、@Controller、@Service、@Repository
+    ·直接在类中加入注解，加入需要用的子属性：两种方式：
+                            ·//@Autowired()  @Qualifier("userServiceImp1")
+                            ·@Resource(name = "userServiceImp1")
+
+
+四、注解版本中注意：
+            ·@Autowired() 在一个子属性的时候不会报错，如果有多个子属性的话，就需要加上@Qualifier("userServiceImp1")，或者换一种方式@Resource(name = "userServiceImp1")
+            ·@Componen、@Controller、@Service、@Repository只是区分不同类的注入bean
+            ·
+
+
+五、Bean其他的属性的配置:
+    ·
+    ·
+    ·
+

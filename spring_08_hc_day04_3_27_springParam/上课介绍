@@ -1,0 +1,96 @@
+spring_07_hc_day03_2_26_springmvc
+一、Demo
+   1、创建WEB工程，引入开发的jar包(配置pom.xml)
+        亮点：
+            <!-- 版本锁定 -->
+            <properties>
+              <spring.version>5.0.2.RELEASE</spring.version>
+            </properties>
+
+   2、新建java、resource目录，配置tomcat，测试运行没问题即可
+
+   3、配置web.xml--配置核心的控制器（配置DispatcherServlet）
+         <servlet>
+            <servlet-name>dispatcherServlet</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+          </servlet>
+
+          <servlet-mapping>
+            <servlet-name>dispatcherServlet</servlet-name>
+            <url-pattern>/</url-pattern>
+          </servlet-mapping>
+
+   4、编写springmvc.xml的配置文件
+        <?xml version="1.0" encoding="UTF-8"?>
+        <beans xmlns="http://www.springframework.org/schema/beans"
+               xmlns:mvc="http://www.springframework.org/schema/mvc"
+               xmlns:context="http://www.springframework.org/schema/context"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/mvc
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd">
+
+            <!--开启注解扫描-->
+            <context:component-scan base-package="com.hc"></context:component-scan>
+
+            <!--视图解析器对象-->
+            <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                <property name="prefix" value="/"></property>
+                <property name="suffix" value=".jsp"></property>
+            </bean>
+
+            <!--开启springMVC框架注解的支持-->
+             <mvc:annotation-driven></mvc:annotation-driven>
+         </beans>
+
+   5、编写index.jsp和TestController控制器类
+   6、在webapp目录下创建并编写success.jsp的成功页面
+
+二、分析流程：
+    1、前端的a标签，发起一个请求
+    2、-> web.xml里面：
+        ·配置dispatcherServlet
+            <servlet-name>dispatcherServlet</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        ·核心控制器：
+            <init-param>
+               <param-name>contextConfigLocation</param-name>
+               <param-value>classpath:springmvc.xml</param-value>
+            </init-param>
+    3、->springmvc.xml
+        ·开启注解扫描
+            <!--开启注解扫描-->
+            <context:component-scan base-package="com.it"></context:component-scan>
+        ·开启springMVC框架注解的支持
+            <!--开启springMVC框架注解的支持-->
+            <mvc:annotation-driven></mvc:annotation-driven>
+        ·视图解析器对象
+            <!--视图解析器对象-->
+            <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+                <property name="prefix" value="/"></property>
+                <property name="suffix" value=".jsp"></property>
+            </bean到TestController>
+    4、->
+        @RequestMapping(path = "/user") //一级目录
+        @RequestMapping(path = "/test.do",method = {RequestMethod.GET},params = {"username"}) //二级目录
+        public String test(){
+                System.out.println("hello!");
+                //去调用service里面的方法
+                return "suceess";
+        }
+    5、->跳转页面 suceess.jsp
+
+========================================================================================================================
+spring_08_hc_day04_3_27_springParam
+
+一、请求参数的绑定
+   1、基本类型
+
+   2、POJO  类型参数 ：
+   3、
+   4、
+

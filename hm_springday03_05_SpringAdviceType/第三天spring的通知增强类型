@@ -1,0 +1,54 @@
+  <!-- 配置切入点表达式 id属性用于指定表达式的唯一标识。expression属性用于指定表达式内容
+        此标签写在aop:aspect标签内部只能当前切面使用。
+        它还可以写在aop:aspect外面，此时就变成了所有切面可用-->
+    <aop:pointcut id="pt1" expression="execution(* service.impl.*.*(..))"></aop:pointcut>
+
+    <!--配置通知的类型。并且建立通知方法和切入点方法的关联
+    <aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>-->
+
+    <!-- 配置后置通知：在切入点方法正常执行之后值。它和异常通知永远只能执行一个
+    <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>-->
+
+    <!-- 配置异常通知：在切入点方法执行产生异常之后执行。它和后置通知永远只能执行一个
+    <aop:after-throwing method="afterThrowingPrintLog" pointcut-ref="pt1"></aop:after-throwing>-->
+
+    <!-- 配置最终通知：无论切入点方法是否正常执行它都会在其后面执行
+    <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
+
+    <!-- 配置环绕通知 详细的注释请看Logger类中-->
+    <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
+
+
+
+   其中很特殊的是环绕通知：
+        /**
+         * 环绕通知
+         * 问题：
+         *      当我们配置了环绕通知之后，切入点方法没有执行，而通知方法执行了。
+         * 分析：
+         *      通过对比动态代理中的环绕通知，发现动态代理的环绕通知有明确的切入点方法调用，而我们的代码中没有
+         * 解决：
+         *      Spring框架为我们提供了一个接口，ProceedingJoinPoint.该接口有一个方法proceed（）。此方法就相当于明确调用切入点方法
+         *      该接口可以作为环绕通知的方法参数，在程序执行中，spring框架会为我们提供该接口的实现类供我们使用
+         * 解释：
+         *      它是spring框架为我们提供的一种方式，一种可以在代码中手动控制增强方法何时执行的方式
+         */
+        public Object aroundPrintLog(ProceedingJoinPoint pjp){
+            Object rtValue = null;
+            try {
+                Object[] args = pjp.getArgs();
+
+                System.out.println("Logger类中的aroundPrintLog方法开始记录日志了。。。");
+
+                rtValue = pjp.proceed(); //明确调用切入点方法
+
+                System.out.println("Logger类中的aroundPrintLog方法开始记录日志了。。。");
+
+                return rtValue;
+            } catch (Throwable throwable) {
+                System.out.println("Logger类中的aroundPrintLog方法开始记录日志了。。。");
+                throw new RuntimeException(throwable);
+            }finally {
+                System.out.println("Logger类中的aroundPrintLog方法开始记录日志了。。。");
+            }
+        }

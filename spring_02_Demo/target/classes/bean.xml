@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--    一、-->
+    <!--    1、-->
+    <bean id="user" class="com.hc.entity.User"></bean>
+
+    <!--    2、-->
+    <bean id="staticUser" class="com.hc.factory.StaticFactory" factory-method="getUser"></bean>
+
+    <!--    3、-->
+    <bean id="instanceFactory" class="com.hc.factory.InstanceFactory"></bean>
+    <bean id="user1" factory-bean="instanceFactory" factory-method="getUser"></bean>
+
+
+    <!--    二、-->
+    <!--    使用范围：单例(singleton)还是多例(prototype)，默认单例-->
+    <bean id="user2" class="com.hc.entity.User" scope="prototype"></bean>
+
+
+    <!--    三、-->
+    <!--    生命周期：-->
+    <!--    单例，出生：当容器创建的时候，bean对象就创建；死亡：当容器关闭的时候，bean对象就销毁-->
+    <!--    多例，出生：当容器创建的时候，bean对象就创建；死亡：自己来销毁，不归bean管了-->
+    <bean id="user3" class="com.hc.entity.User" scope="singleton" init-method="init" destroy-method="destory"></bean>
+
+
+    <!--    四、DI：依赖注入方式一，constructor-arg-->
+    <bean id="user4" class="com.hc.entity.User2">
+        <constructor-arg type="java.lang.Integer" value="1002"></constructor-arg>
+        <constructor-arg index="1" value="林佑"></constructor-arg>
+        <constructor-arg index="2" value="15742147"></constructor-arg>
+        <constructor-arg name="name" value="经理"></constructor-arg>
+        <constructor-arg name="birthday" ref="mybirthday"></constructor-arg>
+    </bean>
+    <bean id="mybirthday" class="java.util.Date"></bean>
+
+
+    <!--    四、DI：依赖注入方式二,用property，setter匹配，推荐使用-->
+    <bean id="user5" class="com.hc.entity.User3">
+        <property name="id" value="1005"></property>
+        <property name="username" value="峰哥"></property>
+        <property name="password" value="12414"></property>
+        <property name="name" value="总计经理"></property>
+        <property name="birthday" ref="mybirthday"></property>
+    </bean>
+
+    <!--    五、复杂数据注入-->
+    <bean id="user6" class="com.hc.entity.User4">
+        <property name="array">
+            <array>
+                <value>array1</value>
+                <value>array2</value>
+                <value>array3</value>
+                <value>array4</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>list1</value>
+                <value>list2</value>
+                <value>list3</value>
+                <value>list4</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>set1</value>
+                <value>set2</value>
+                <value>set3</value>
+                <value>set4</value>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="mapkey1" value="mapvalue1"></entry>
+                <entry key="mapkey2" value="mapvalue2"></entry>
+                <entry key="mapkey3" >
+                    <value>mapvalue3</value>
+                </entry>
+            </map>
+        </property>
+
+        <property name="properties">
+            <props>
+                <prop key="propkey1">provalue1</prop>
+                <prop key="propkey2">provalue2</prop>
+            </props>
+        </property>
+
+        <property name="listUser3">
+            <list>
+                <ref bean="user5"></ref>
+            </list>
+        </property>
+
+        <property name="mapUser3">
+            <map>
+                <entry key="mapuser1" value-ref="user5"></entry>
+            </map>
+        </property>
+
+    </bean>
+
+    <!--    六、命名空间的注入-->
+    <!--    xmlns:p="http://www.springframework.org/schema/p"-->
+    <!--    xmlns:c="http://www.springframework.org/schema/c"-->
+    <bean id="user7" class="com.hc.entity.User2" c:id="1002" c:username="王俊宇" c:password="412421" c:name="傻逼" c:birthday-ref="mybirthday"></bean>
+
+    <!--    七、 spEL的属性注入-->
+    <bean id="carInfo" class="com.hc.bean.CarInfo"></bean>
+    <bean id="car" class="com.hc.bean.Car">
+        <property name="name" value="#{carInfo.name}"></property>
+        <property name="price" value="#{carInfo.calculatePrice()}"></property>
+    </bean>
+    <bean id="employee" class="com.hc.bean.Employee">
+        <property name="name" value="#{1>2?'李四':'张三'}"></property>
+        <property name="car" value="#{car}"></property>
+    </bean>
+
+
+</beans>

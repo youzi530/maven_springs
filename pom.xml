@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.hc</groupId>
+    <artifactId>maven_spring</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>spring_01_Demo</module>
+        <module>spring_02_Demo</module>
+        <module>spring_03_Demo</module>
+        <module>spring_04_Demo</module>
+        <module>spring_04_agent</module>
+        <module>spring_05_itheima</module>
+        <module>spring_06_hc_day01_2_24</module>
+        <module>spring_06_hc_day01_2_25</module>
+        <module>spring_07_hc_day03_2_26_springmvc</module>
+        <module>spring_08_hc_day04_3_27_springParam</module>
+        <module>hm_JPAday01_01JPA_Demo</module>
+        <module>hm_JPAday01_01JPA_Demo</module>
+        <module>hm_springday01_01_JDBC</module>
+        <module>hm_springday01_02_Factory</module>
+        <module>hm_springday01_03_SpringIOC</module>
+        <module>hm_springday01_04_Bean</module>
+        <module>hm_springday01_05_DI</module>
+        <module>hm_springday02_01_AnnotationIOC</module>
+        <module>hm_springday02_02_Account_XML_IOC</module>
+        <module>hm_springday02_03_Account_Annotation_CRUD</module>
+        <module>hm_springday02_04_Account_Annotation_WithoutXml</module>
+        <module>hm_springday03_01_Account_Example</module>
+        <module>hm_springday03_02_Proxy</module>
+        <module>hm_springday03_03Pxoxy</module>
+        <module>hm_springday03_04_SpringAOP</module>
+        <module>hm_springday03_05_SpringAdviceType</module>
+        <module>hm_springday03_06_AnnotationAOP</module>
+        <module>hm_springday04_01_jdbcTemplate</module>
+        <module>hm_springday04_02_Account_AOPtx_XML</module>
+        <module>hm_springday04_03_Account_AOPtx_Anno</module>
+        <module>hm_springday04_04_tx</module>
+        <module>hm_springday04_05_tx_xml</module>
+        <module>hm_springday04_06_tx_anno</module>
+        <module>hm_springday04_07_Anno_tx_withoutXML</module>
+        <module>hm_springday04_08_Account_tx</module>
+        <module>hm_springday04_09_Jdk8</module>
+    </modules>
+
+
+</project>

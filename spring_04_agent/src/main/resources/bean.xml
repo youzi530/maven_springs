@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--    目标类：-->
+    <bean id="user" class="test3_AOP.UserDaoImpl"></bean>
+
+    <!--    加强的类的内容-->
+    <bean id="logUtil" class="test3_AOP.LogUtil"></bean>
+
+
+    <aop:config>
+        <aop:pointcut id="pt" expression="execution(* *..UserDaoImpl.add())"/>
+
+        <aop:aspect id="myaspect" ref="logUtil">
+            <!--对update方法的前置通知增强-->
+            <!--pointcut语法-->
+            <aop:before method="beforeLog" pointcut="execution( public void test3_AOP.UserDaoImpl.add())"></aop:before>
+            <!--对update方法的后置增强-->
+            <aop:after-returning method="afterLog" pointcut="execution(* *..UserDaoImpl.add())"></aop:after-returning>
+            <!--<aop:after-returning method="afterLog" pointcut="execution(* *..UserDaoImpl.update())"></aop:after-returning>-->
+
+            <!--对update方法的最终增强-->
+            <aop:after method="afterFinalLog" pointcut="execution(* *..UserDaoImpl.add())"></aop:after>
+            <!--对update方法的异常增强，增强的方法是throwLog-->
+            <aop:after-throwing method="throwLog" pointcut="execution(* *..UserDaoImpl.add())"></aop:after-throwing>
+            <!--对update方法的后置增强，增强的方法是afterLog1-->
+            <aop:after-returning method="afterLog1" pointcut="execution(* *..UserDaoImpl.update())" returning="object"></aop:after-returning>
+        </aop:aspect>
+
+        <aop:aspect id="mysapect1" ref="logUtil">
+            <aop:around method="arroundLog" pointcut-ref="pt"></aop:around>
+        </aop:aspect>0..
+
+0
+ .
+    00.    </aop:config>
+</beans>

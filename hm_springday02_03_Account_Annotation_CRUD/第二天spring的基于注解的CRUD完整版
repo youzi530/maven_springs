@@ -1,0 +1,25 @@
+基于注解的crud：
+    1、在xml里面的头部需要改动
+            <?xml version="1.0" encoding="UTF-8"?>
+            <beans xmlns="http://www.springframework.org/schema/beans"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:context="http://www.springframework.org/schema/context"
+                   xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    2、将dao，service分别加载到bean中
+        @Repository("accountDao")
+        @Service("accountService")
+
+    3、将dao实现层和service实现层里面所引用的数据注入，并将原来对应的setter方法去掉
+        @Autowired
+        private QueryRunner runner;
+
+        @Autowired
+        private IAccountDao accountDao;
+
+    4、使用注解的时候,要告知spring在创建容器时需要扫描的包
+          <context:component-scan base-package="service"></context:component-scan>
+          <context:component-scan base-package="dao"></context:component-scan>

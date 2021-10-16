@@ -1,0 +1,71 @@
+黑马教程：
+
+-------------------------------------------------------------------
+spring_01_Demo
+一、耦合：程序之间的依赖关系
+        ·类之间的依赖
+            ·第一步：使用反射来创建对象，而避免使用new关键字
+            ·第二步：通过读取配置文件来获取要创建的对象全限定类名
+        ·方法之间的依赖
+    解耦：降低程序之间的依赖关系
+    注意：编译期不依赖，运行时才依赖
+    例子：sevlet层调用service层，service层调用dao层，耦合度极高
+    操作：
+        新建一个完整的servlet的项目构建的maven项目，不包括factory，然后运行ui里面的Client
+
+二、Bean:可重用的组件
+    javabean：用java编写的可重用的组件  javabean != 实体类
+
+    解决方式：
+    第一个：需要一个配置文件来配置我们的service和dao
+        配置的内容：唯一标识key-value（两种）全限定类名
+        ·xml（spring的时候用）
+        ·properties(建议使用，简单)
+    第二个：通过读取配置文件中的配置内容，反射创建对象
+
+    操作：
+        新建hiemabean.properties
+        新建BeanFactory类，里面写
+三、单例与多例
+    ·servlet是单例；只被创建一次
+
+    ·bean = Class.forName(beanPath).newInstance();则是多例的
+四、其实呢，就是与其用new的方式来确定两个对象的关系时候，我们采取一种更加高效的方式来降低陈序的耦合度
+    就是新建一个工厂来充当中介的角色来确定关系，削减程序的耦合度，不能完全的消除
+
+五、接下来学习spring中的ioc，上面学习只是降低我们程序的耦合度，用的是我们自己的方式
+
+
+-----------------------------------------------------------------------------------------------------------
+spring_02_Demo
+一、使用spring的ioc做准备
+    ·新建itheimabean.xml文件
+    ·修改Client类中的内容
+
+二、ApplicationContext的三个常用实现类
+    ·ClassPathXmlApplicationContext
+        加载类路径下的配置文件，要求配置文件必须在类路径下
+        ApplicationContext ac = new ClassPathXmlApplicationContext("itheimabean.xml");
+    ·FileSystemXmlApplicationContext
+        加载磁盘下的任意路径下的配置文件（必须有访问权限）
+        ApplicationContext ac = new FileSystemXmlApplicationContext("F:\\study\\java\\IdeaProjects\\maven_spring\\spring_02_Demo\\src\\main\\resources\\itheimabean.xml");
+    ·AnnotationConfigApplicationContext
+        用于读取注解创建容器的
+
+三、核心容器两个接口引发的问题：
+    ·ApplicationContext:(单例对象适用)
+        他在构建核心容器的时候，创建对象采取的策略是采取立即加载的方式，也就是说，只要一读取配置文件马上就创建配置文件中配置的对象。
+        ApplicationContext ac = new ClassPathXmlApplicationContext("itheimabean.xml");
+        IAccountService as = (IAccountService) ac.getBean("accountService");
+        IAccountDao adao = ac.getBean("accountDao", IAccountDao.class);
+    ·BeanFactory:(多例对象适用)
+        他在构建核心容器的时候，创建对象采取的策略是采用延迟加载的方式，也就是说，什么时候根据id获取对象了，什么时候才真正的创建对象。
+        Resource resource = new ClassPathResource("itheimabean.xml");
+        BeanFactory factory = new XmlBeanFactory(resource);
+        IAccountService as = (IAccountService) factory.getBean("accountService");
+
+
+
+
+
+

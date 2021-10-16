@@ -1,0 +1,39 @@
+在这个基于注解的案例中：
+    1、将bean.xml中的配置使用注解
+    2、在TransactionManager中需要进切面的配置：
+        //切面表达式
+        @Pointcut("execution(* service.impl.*.*(..))")
+        private void pt1(){}
+    3、当你使用注解配置的时候：
+        ·需要配置spring创建容器时要扫描的包
+        ·需要开启spring对注解aop的支持
+    4、特别注意的是：
+        在使用注解的时候，不能使用使用前置、后置、异常、最终通知
+        原因：因为执行顺序是先执行最终通知，已经和线程解绑，再执行异常或后置就会报错
+        解法：使用环绕通知
+        实例：
+            @Around("pt1()")
+            public Object aroundAdvice(ProceedingJoinPoint pjp){
+                Object rtValue = null;
+                try{
+                    //1、获取参数
+                    Object[] args = pjp.getArgs();
+                    //3、开始事务
+                    this.beginTransaction();
+                    //3、执行方法
+                    rtValue = pjp.proceed(args);
+                    //4、提交事务
+                    this.commit();
+                    //返回结果
+                    return rtValue;
+                }catch (Throwable e){
+                    //5、回滚事务
+                    this.rollback();
+                    throw new RuntimeException(e);
+                }finally {
+                    //6、释放资源
+                    this.release();
+                }
+            }
+        使用spring提供的ProceedingJoinPoint pjp作为参数
+        使用spring里pjp.proceed(args);

@@ -1,0 +1,39 @@
+一、事务的引出：
+    1、书写一个转账的案例
+    2、自己弄一个异常
+    3、引出事务问题，一个test里面很多方法不在一个事务里面，导致数据不一致
+
+    4、书写一个utils方法类：ConnectionUtils，使用ThreadLocal
+           用于从数据源中获取连接，实现和线程的绑定
+         ·private ThreadLocal<Connection> tl = new ThreadLocal<Connection>();
+         ·获取当前线程上的连接
+         ·把连接和线程解绑
+
+    5、书写一个utils方法类：TransactionManager：
+        和事务管理相关的工具类，它包含了，开启事务，提交事务，回滚事务和释放连接
+        ·开启事务
+        ·提交事务
+        ·回滚事务
+        ·释放连接
+    6、在serivce层里面引入TransactionManager
+        private TransactionManager tsManager;
+        并且在方法里面：
+            //1.开启事务
+            tsManager.beginTransaction();
+            //2.执行操作
+            List<Account> accounts = accountDao.findAllAccount();
+            //3.提交事务
+            tsManager.commit();
+             //5.回滚操作
+            tsManager.rollback();
+             //6.释放连接
+            tsManager.release();
+    7、在到的实现层里面引用：ConnectionUtils
+        ·private ConnectionUtils connectionUtils;
+        ·在query方法加参数：
+            return runner.query(connectionUtils.getThreadConnection(),"select * from account",new BeanListHandler<Account>(Account.class));
+    8、在bean里面配置ConnectionUtils和TransactionManager
+    9、在bean里面的dao和service里面注入ConnectionUtils和TransactionManager
+
+
+

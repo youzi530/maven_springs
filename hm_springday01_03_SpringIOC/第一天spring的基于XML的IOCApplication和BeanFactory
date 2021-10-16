@@ -1,0 +1,17 @@
+
+    BeanFactory和 ApplicationContext 的区别
+        BeanFactory 才是 Spring 容器中的顶层接口。
+        ApplicationContext 是它的子接口。
+    BeanFactory 和 ApplicationContext 的区别：
+        创建对象的时间点不一样。
+            ApplicationContext：只要一读取配置文件，默认情况下就会创建对象。
+            BeanFactory：什么使用什么时候创建对象。
+
+
+    ApplicationContext 接口的实现类
+        ClassPathXmlApplicationContext：
+            它是从类的根路径下加载配置文件  推荐使用这种
+        FileSystemXmlApplicationContext：
+            它是从磁盘路径上加载配置文件，配置文件可以在磁盘的任意位置。
+        AnnotationConfigApplicationContext:
+            当我们使用注解配置容器对象时，需要使用此类来创建 spring 容器。它用来读取注解。

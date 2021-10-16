@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="hm_springday03_04_SpringAOP" />
+        <module name="hm_springday02_02_Account_XML_IOC" />
+        <module name="hm_springday04_07_Anno_tx_withoutXML" />
+        <module name="hm_springday01_04_Bean" />
+        <module name="hm_springday02_03_Account_Annotation_CRUD" />
+        <module name="hm_JPAday01_01JPA_Demo" />
+        <module name="hm_springday03_02_Proxy" />
+        <module name="spring_04_Demo" />
+        <module name="hm_springday04_09_Jdk8" />
+        <module name="hm_springday04_04_tx" />
+        <module name="hm_springday04_05_tx_xml" />
+        <module name="hm_springday04_01_jdbcTemplate" />
+        <module name="hm_springday02_01_AnnotationIOC" />
+        <module name="hm_springday03_01_Account_Example" />
+        <module name="hm_springday03_03Pxoxy" />
+        <module name="spring_06_hc_day01_2_25" />
+        <module name="spring_06_hc_day01_2_24" />
+        <module name="hm_springday01_05_DI" />
+        <module name="spring_04_agent" />
+        <module name="spring_03_Demo" />
+        <module name="hm_springday04_08_Account_tx" />
+        <module name="hm_springday04_06_tx_anno" />
+        <module name="hm_springday03_05_SpringAdviceType" />
+        <module name="hm_springday04_02_Account_AOPtx_XML" />
+        <module name="hm_springday02_04_Account_Annotation_WithoutXml" />
+        <module name="spring_05_itheima" />
+        <module name="hm_springday04_03_Account_AOPtx_Anno" />
+        <module name="spring_02_Demo" />
+        <module name="spring_01_Demo" />
+        <module name="hm_springday01_03_SpringIOC" />
+        <module name="spring_07_hc_day03_2_26_springmvc" />
+        <module name="hm_springday01_02_Factory" />
+        <module name="spring_08_hc_day04_3_27_springParam" />
+        <module name="hm_springday01_01_JDBC" />
+        <module name="hm_springday03_06_AnnotationAOP" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="hm_JPAday01_01JPA_Demo" target="1.5" />
+      <module name="hm_springday02_02Account_XML_IOC" target="1.5" />
+      <module name="maven_04_agent" target="1.5" />
+      <module name="spring_06_hongcheng_hanjia" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
